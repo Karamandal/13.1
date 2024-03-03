@@ -1,27 +1,24 @@
 class Category:
-    name = str
-    description = str
-    gods = str
+    total_categories: int = 0
+    total_products = set()
 
-    def __init__(self, name, description, goods):
+    def __init__(self, name: str, description: str, products: list):
         self.name = name
         self.description = description
-        self.goods = goods
+        self.products = products
+        Category.total_categories += 1
+        self.total_number_of_products(products)
 
+    def total_number_of_categories(self) -> int:
+        return Category.total_categories
 
-    def total_number_of_categories(self, categories):
-        return len(categories)
+    def total_number_of_products(self, products):
+        for product in products:
+            Category.total_products.add(product.name)
 
-    def total_number_of_goods(self):
-        return len(self.goods)
 
 class Product:
-    name = str
-    description = str
-    price = float
-    quantity_in_stock = int
-
-    def __init__(self, name, description, price, quantity_in_stock):
+    def __init__(self, name: str, description: str, price: float, quantity_in_stock: int):
         self.name = name
         self.description = description
         self.price = price

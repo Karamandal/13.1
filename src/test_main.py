@@ -1,29 +1,49 @@
-from classes import Category
-from classes import Product
-
-def test_total_number_of_categories():
-    categories = [Category("Category1", "Description1", []),
-                  Category("Category2", "Description2", []),
-                  Category("Category3", "Description3", [])]
-    category = Category("Category4", "Description4", [])
-    categories.append(category)
-    assert category.total_number_of_categories(categories) == 4
-
-def test_total_number_of_goods():
-    goods = ["Good1", "Good2", "Good3"]
-    category = Category("Category", "Description", goods)
-    assert category.total_number_of_goods() == 3
-
-"""Аналогично, в файле test_main.py можно написать тестовые функции для класса Product:"""
+import pytest
+from classes import Category, Product
 
 
-def test_quantity_in_stock():
-    product = Product("Product", "Description", 10.99, 5)
-    assert product.quantity_in_stock == 5
+@pytest.fixture
+def simple_data():
+    product1 = Product("Laptop", "High-performance laptop", 1500, 10)
+    product2 = Product("Smartphone", "Latest smartphone model", 800, 20)
+    category1 = Category("Electronics", "Category for electronic devices", [product1, product2])
 
-def test_total_number_of_products():
-    products = [Product("Product1", "Description1", 9.99, 10),
-                Product("Product2", "Description2", 19.99, 15),
-                Product("Product3", "Description3", 14.99, 20)]
-    assert len(products) == 3
+    product3 = Product("Headphones", "Wireless", 200, 15)
+    product4 = Product("Tablet", "Portable tablet device", 600, 12)
+    category2 = Category("Gadgets", "Category for cool gadgets", [product3, product4])
 
+    product5 = Product("TV", "Smart TV with 4K resolution", 1200, 8)
+    product6 = Product("Camera", "Professional DSLR camera", 1000, 5)
+    category3 = Category("Electronics", "Category for electronic devices", [product5, product6])
+
+    product7 = Product("Watch", "Smartwatch with fitness tracking", 300, 25)
+    product8 = Product("Speaker", "Bluetooth speaker with surround sound", 150, 30)
+    category4 = Category("Accessories", "Category for electronic accessories", [product7, product8])
+
+    product9 = Product("Printer", "Wireless color printer", 400, 7)
+    product10 = Product("Router", "High-speed WiFi router", 80, 18)
+    category5 = Category("Office Equipment", "Category for office devices", [product9, product10])
+
+    return [category1, category2, category3, category4, category5]
+
+
+def test_total_number_of_categories(simple_data):
+    assert Category.total_categories == 5
+
+
+def test_total_number_of_products(simple_data):
+    assert len(Category.total_products) == 10
+
+
+def test_category_initialization():
+    category = Category("Electronics", "Category for electronic devices", [])
+    assert category.name == "Electronics"
+    assert category.description == "Category for electronic devices"
+
+
+def test_product_initialization():
+    product = Product("Laptop", "High-performance laptop", 999.99, 10)
+    assert product.name == "Laptop"
+    assert product.description == "High-performance laptop"
+    assert product.price == 999.99
+    assert product.quantity_in_stock == 10
