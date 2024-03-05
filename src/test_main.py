@@ -47,3 +47,17 @@ def test_product_initialization():
     assert product.description == "High-performance laptop"
     assert product.price == 999.99
     assert product.quantity_in_stock == 10
+
+
+def test_get_total_products():
+    product1 = Product("Ноутбук", "Мощный ноутбук", 1000, 10)
+    product2 = Product("Смартфон", "Современный смартфон", 500, 20)
+    category = Category("Электроника", "Технические устройства", [product1, product2])
+    products_list = category.get_total_products
+
+    assert len(products_list) > 0
+    assert products_list[0] == f"Ноутбук, 1000 руб. Остаток: 10 шт."
+    assert products_list[1] == f"Смартфон, 500 руб. Остаток: 20 шт."
+
+def test_price_changer():
+    pass
