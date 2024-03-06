@@ -59,5 +59,18 @@ def test_get_total_products():
     assert products_list[0] == f"Ноутбук, 1000 руб. Остаток: 10 шт."
     assert products_list[1] == f"Смартфон, 500 руб. Остаток: 20 шт."
 
-def test_price_changer():
-    pass
+
+def test_create_new_product():
+    product_data = {
+        "name": "Смартфон",
+        "description": "Современный смартфон",
+        "price": 500,
+        "quantity_in_stock": 20
+    }
+
+    new_product = Product.create_new_product(product_data)
+    assert new_product.name == "Смартфон"
+    assert new_product.description == "Современный смартфон"
+    assert new_product.price == 500
+    assert new_product.quantity_in_stock == 20
+

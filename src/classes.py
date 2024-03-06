@@ -5,7 +5,7 @@ class Category:
     def __init__(self, name: str, description: str, products: list):
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = products
         Category.total_categories += 1
         self.total_number_of_products(products)
 
@@ -16,13 +16,13 @@ class Category:
         for product in products:
             Category.total_products.add(product.name)
 
-    def add_product(self, product):
-        self.products.append(product)
+    def add_product(self, product_data):
+        self.__products.append(product_data)
 
     @property
     def get_total_products(self):
         products_list = []
-        for product in self.products:
+        for product in self.__products:
             products_list.append(f"{product.name}, {product.price} руб. Остаток: {product.quantity_in_stock} шт.")
         return products_list
 
@@ -34,12 +34,9 @@ class Product:
         self.__price = price
         self.quantity_in_stock = quantity_in_stock
 
-    def create_new_product(self):
-        name = input("Enter product: ")
-        description = input("Enter description")
-        price = input("Enter price")
-        quantity_in_stock = int(input("Enter quantity in"))
-        return Product(name, description, price, quantity_in_stock)
+    @classmethod
+    def create_new_product(cls, product_data):
+        return cls(**product_data)
 
     @property
     def price(self):
