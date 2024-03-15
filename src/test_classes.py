@@ -1,5 +1,5 @@
 import pytest
-from classes import Category, Product
+from classes import Category, Product, Smartphone
 
 
 @pytest.fixture
@@ -74,3 +74,16 @@ def test_create_new_product():
     assert new_product.price == 500
     assert new_product.quantity_in_stock == 20
 
+
+def test_add_method_same_product_class():
+    product_a = Product("Товар A", 100, 10, 10)
+    product_b = Product("Товар B", 200, 3, 10)
+    result = product_a + product_b
+    assert result == 130
+
+
+def test_add_method_different_product_classes():
+    product_a = Product("Товар A", 100, 10, 10)
+    smartphone_c = Smartphone("Смартфон C", "powerful smartphone", 5, 12, "2.3 GHz", "Smartphone 10", 8000, "black")
+    with pytest.raises(TypeError):
+        assert product_a + smartphone_c

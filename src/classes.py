@@ -1,8 +1,8 @@
 class Category:
-    total_categories: int = 0
+    total_categories = 0
     total_products = set()
 
-    def __init__(self, name: str, description: str, products: list):
+    def __init__(self, name, description, products):
         self.name = name
         self.description = description
         self.__products = products
@@ -34,7 +34,7 @@ class Category:
 
 
 class Product:
-    def __init__(self, name: str, description: str, price: float, quantity_in_stock: int):
+    def __init__(self, name, description, price, quantity_in_stock):
         self.name = name
         self.description = description
         self.__price = price
@@ -52,7 +52,7 @@ class Product:
         return self.__price
 
     @price.setter
-    def price_changer(self, new_price):
+    def price(self, new_price):
         if new_price <= 0:
             print("Цена введена некорректная")
         elif new_price < self.__price:
@@ -66,6 +66,28 @@ class Product:
             self.__price = new_price
 
     def __add__(self, other):
-        total_price = (self.price * self.quantity_in_stock) + (other.price * other.quantity_in_stock)
-        return total_price
+        if type(self) != type(other):
+            raise TypeError("Нельзя складывать товары разных классов")
 
+        if isinstance(other, Product):
+            total_price = (self.price * self.quantity_in_stock) + (other.price * other.quantity_in_stock)
+            return total_price
+        else:
+            raise TypeError("Можно складывать только объекты класса Product или его наследников")
+
+
+class Smartphone(Product):
+    def __init__(self, name, description, price, quantity_in_stock, performance, model, memory_capacity, color):
+        super().__init__(name, description, price, quantity_in_stock)
+        self.performance = performance
+        self.model = model
+        self.memory_capacity = memory_capacity
+        self.color = color
+
+
+class LawnGrass(Product):
+    def __init__(self, name, description, price, quantity_in_stock, manufacturer_country, germination_period, color):
+        super().__init__(name, description, price, quantity_in_stock)
+        self.manufacturer_country = manufacturer_country
+        self.germination_period = germination_period
+        self.color = color
