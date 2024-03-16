@@ -17,7 +17,10 @@ class Category:
             Category.total_products.add(product.name)
 
     def add_product(self, product_data):
-        self.__products.append(product_data)
+        if isinstance(product_data, Product) or issubclass(type(product_data), Product):
+            self.__products.append(product_data)
+        else:
+            raise TypeError("Можно добавлять только объекты класса Product или его наследников")
 
     @property
     def get_total_products(self):
@@ -74,6 +77,7 @@ class Product:
             return total_price
         else:
             raise TypeError("Можно складывать только объекты класса Product или его наследников")
+
 
 
 class Smartphone(Product):
