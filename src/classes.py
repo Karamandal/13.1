@@ -112,11 +112,3 @@ class LawnGrass(Product):
         self.manufacturer_country = manufacturer_country
         self.germination_period = germination_period
         self.color = color
-
-
-"""product1 = Product('Продукт1', 1200, 10, 'Категория1')
-smartphone1 = Smartphone('Смартфон1', 20000, 5, 'Категория2', 'Samsung', 10, 10, 10)
-lawn_grass1 = LawnGrass('Трава1', 500, 20, 'Категория3', 'Зеленая', 10, 10)
-print(repr(product1))
-print(repr(smartphone1))
-print(repr(lawn_grass1))"""
