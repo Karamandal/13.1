@@ -1,3 +1,6 @@
+from abc import ABC, abstractmethod
+
+
 class Category:
     total_categories = 0
     total_products = set()
@@ -36,8 +39,23 @@ class Category:
         return f"{self.name}, количество продуктов: {len(self)} шт."
 
 
-class Product:
+class ProductBase(ABC):
+    @abstractmethod
+    def __init__(self):
+        pass
+
+
+class CreationInfoMixin:
+    def __init__(self, *args, **kwargs):
+        repr(self)
+
+    def __repr__(self):
+        return f"{self.__class__.__name__} {self.__dict__.items()}"
+
+
+class Product(CreationInfoMixin, ProductBase):
     def __init__(self, name, description, price, quantity_in_stock):
+        super().__init__()
         self.name = name
         self.description = description
         self.__price = price
@@ -79,7 +97,6 @@ class Product:
             raise TypeError("Можно складывать только объекты класса Product или его наследников")
 
 
-
 class Smartphone(Product):
     def __init__(self, name, description, price, quantity_in_stock, performance, model, memory_capacity, color):
         super().__init__(name, description, price, quantity_in_stock)
@@ -95,3 +112,11 @@ class LawnGrass(Product):
         self.manufacturer_country = manufacturer_country
         self.germination_period = germination_period
         self.color = color
+
+
+"""product1 = Product('Продукт1', 1200, 10, 'Категория1')
+smartphone1 = Smartphone('Смартфон1', 20000, 5, 'Категория2', 'Samsung', 10, 10, 10)
+lawn_grass1 = LawnGrass('Трава1', 500, 20, 'Категория3', 'Зеленая', 10, 10)
+print(repr(product1))
+print(repr(smartphone1))
+print(repr(lawn_grass1))"""
