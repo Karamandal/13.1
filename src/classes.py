@@ -44,13 +44,20 @@ class ProductBase(ABC):
     def __init__(self):
         pass
 
+    @abstractmethod
+    def __add__(self, other):
+        pass
+
 
 class CreationInfoMixin:
     def __init__(self, *args, **kwargs):
         repr(self)
 
     def __repr__(self):
-        return f"{self.__class__.__name__} {self.__dict__.items()}"
+        object_attributes = ''
+        for k, v in self.__dict__.items():
+            object_attributes += f'{k}: {v},'
+        return f"создан объект со свойствами {object_attributes})"
 
 
 class Product(CreationInfoMixin, ProductBase):
@@ -112,3 +119,4 @@ class LawnGrass(Product):
         self.manufacturer_country = manufacturer_country
         self.germination_period = germination_period
         self.color = color
+
