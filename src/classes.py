@@ -48,6 +48,10 @@ class ProductBase(ABC):
     def __add__(self, other):
         pass
 
+    @abstractmethod
+    def __str__(self):
+        pass
+
 
 class CreationInfoMixin:
     def __init__(self, *args, **kwargs):
