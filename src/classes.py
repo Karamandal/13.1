@@ -54,7 +54,7 @@ class ProductBase(ABC):
         pass
 
     @abstractmethod
-    def price(self, new_price):
+    def price(self):
         pass
 
 
