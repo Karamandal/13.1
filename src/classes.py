@@ -40,9 +40,6 @@ class Category:
 
 
 class ProductBase(ABC):
-    @abstractmethod
-    def __init__(self):
-        pass
 
     @abstractmethod
     def __add__(self, other):
@@ -50,6 +47,14 @@ class ProductBase(ABC):
 
     @abstractmethod
     def __str__(self):
+        pass
+
+    @abstractmethod
+    def create_new_product(self, product_data):
+        pass
+
+    @abstractmethod
+    def price(self, new_price):
         pass
 
 
@@ -123,4 +128,3 @@ class LawnGrass(Product):
         self.manufacturer_country = manufacturer_country
         self.germination_period = germination_period
         self.color = color
-
