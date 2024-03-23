@@ -38,6 +38,17 @@ class Category:
     def __str__(self):
         return f"{self.name}, количество продуктов: {len(self)} шт."
 
+    def calculate_average_price(self):
+        total_price = sum(product.price for product in self.__products if product.price is not None)
+        total_count = len(self.__products)
+
+        try:
+            average_price = total_price / total_count
+        except ZeroDivisionError:
+            return 0
+
+        return average_price
+
 
 class ProductBase(ABC):
 
@@ -82,6 +93,8 @@ class Product(CreationInfoMixin, ProductBase):
 
     @classmethod
     def create_new_product(cls, product_data):
+        if product_data.get('quantity') == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен.")
         return cls(**product_data)
 
     @property

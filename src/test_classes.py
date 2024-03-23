@@ -87,3 +87,11 @@ def test_add_method_different_product_classes():
     smartphone_c = Smartphone("Смартфон C", "powerful smartphone", 5, 12, "2.3 GHz", "Smartphone 10", 8000, "black")
     with pytest.raises(TypeError):
         assert product_a + smartphone_c
+
+
+def test_calculate_average_price():
+    product1 = Product("Laptop", "High-performance laptop", 1500, 10)
+    product2 = Product("Smartphone", "Latest smartphone model", 800, 20)
+    category1 = Category("Electronics", "Category for electronic devices", [product1, product2])
+    average_price = category1.calculate_average_price()
+    assert average_price == 1150.0
